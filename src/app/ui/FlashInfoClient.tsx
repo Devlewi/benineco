@@ -28,7 +28,7 @@ export default function FlashInfoClient({ locale }: { locale: string }) {
   const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_CHANNEL_URL;
 
   const page = parseInt(searchParams.get("page") || "1", 10);
-  const perPage = 8;
+  const perPage = 10;
 
   const t = getTranslation(locale);
   const next = t.next || "";

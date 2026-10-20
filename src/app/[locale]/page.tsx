@@ -13,6 +13,7 @@ import NinthSectionComponent from "../ui/NinthSectionComponent";
 import EspacePub2 from "../ui/EspacePub2";
 import PubReportageSectionComponent from "../ui/PubReportageSectionComponent";
 import BrandSectionComponent from "../ui/BrandSectionComponent";
+import NetworkNewsSectionComponent from "../ui/NetworkNewsComponent";
 //import { getTranslation } from "../utils/i18n";
 
 
@@ -43,11 +44,11 @@ export async function generateMetadata({
   };
 
   return {
-    title: locale === "en" ? "Bénin ECO | HOME" : "Bénin ECO | ACCUEIL",
+    title: locale === "en" ? "BENIN ECO | HOME" : "BENIN ECO | ACCUEIL",
     description:
       locale === "en"
-        ? "Bénin ECO is your economic news portal dedicated to Benin"
-        : "Bénin ECO est votre portail d'information économique dédié au Bénin",
+        ? "BENIN ECO is your economic news portal dedicated to BENIN"
+        : "BENIN ECO est votre portail d'information économique dédié au BENIN",
 
     // Icônes de navigation
     icons: {
@@ -60,20 +61,20 @@ export async function generateMetadata({
 
     // Balises Open Graph pour Facebook, WhatsApp, etc.
     openGraph: {
-      title: locale === "en" ? "Bénin ECO | HOME" : "Bénin ECO | ACCUEIL",
+      title: locale === "en" ? "BENIN ECO | HOME" : "BENIN ECO | ACCUEIL",
       description:
         locale === "en"
-          ? "Bénin ECO is your economic news portal dedicated to Benin"
-          : "Bénin ECO est votre portail d'information économique dédié au Bénin",
+          ? "BENIN ECO is your economic news portal dedicated to BENIN"
+          : "BENIN ECO est votre portail d'information économique dédié au BENIN",
       url: `${siteDomain}/${locale}`,
-      siteName: "Bénin ECO",
+      siteName: "BENIN ECO",
       type: "website",
       images: [
         {
           url: `${siteDomain}/${locale}/images/og-image.png`, // 🔧 Met une vraie image (1200x630px)
           width: 1200,
           height: 630,
-          alt: "Aperçu Bénin ECO",
+          alt: "Aperçu BENIN Eco",
         },
       ],
     },
@@ -81,15 +82,16 @@ export async function generateMetadata({
     // Twitter card (aperçu sur Twitter/X)
     twitter: {
       card: "summary_large_image",
-      title: locale === "en" ? "Bénin ECO | HOME" : "Bénin ECO | ACCUEIL",
+      title: locale === "en" ? "BENIN ECO | HOME" : "BENIN ECO | ACCUEIL",
       description:
         locale === "en"
-          ? "Bénin ECO is your economic news portal dedicated to Benin"
-          : "Bénin ECO est votre portail d'information économique dédié au Bénin",
+          ? "BENIN ECO is your economic news portal dedicated to BENIN"
+          : "BENIN ECO est votre portail d'information économique dédié au BENIN",
       images: [`${siteDomain}/${locale}/images/og-image.png`],
     },
   };
 }
+
 
 
 export default async function Home({ params }: Props) {
@@ -207,6 +209,7 @@ export default async function Home({ params }: Props) {
             locale={locale}
             dataPost={latestPubliciteReportage}/>
 
+          <NetworkNewsSectionComponent locale={locale}/>
 
           {/* section 12 : */}
           <NinthSectionComponent/>

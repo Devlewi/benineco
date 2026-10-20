@@ -30,7 +30,7 @@ const EspacePub2: React.FC = () => {
 
     // Script Revive
     const script = document.createElement("script");
-    script.src = "//client.cynomedia-africa.com/www/delivery/asyncjs.php";
+    script.src = "//adserver.cynomedia.com/www/delivery/asyncjs.php";
     script.async = true;
     
     /*
@@ -68,14 +68,14 @@ const EspacePub2: React.FC = () => {
               {isMobile ? (
                 //data-revive-zoneid="230"
                 <ins
-                  data-revive-zoneid="2237"
-                  data-revive-id="97f3bbebf0ebdc5eed163b8fac6171c8"
+                  data-revive-zoneid="301"
+                  data-revive-id="16a6633e0a24be5cdd88d46adf91ea32"
                 ></ins>
               ) : (
                 //data-revive-zoneid="229"
                 <ins
-                  data-revive-zoneid="2236"
-                  data-revive-id="97f3bbebf0ebdc5eed163b8fac6171c8"
+                  data-revive-zoneid="302"
+                  data-revive-id="16a6633e0a24be5cdd88d46adf91ea32"
                 ></ins>                
                 
               )}

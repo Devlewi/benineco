@@ -5,6 +5,8 @@ import {
   FaAngleDoubleRight,
   FaHandPointRight,
   FaImage,
+  FaLinkedin,
+  FaWhatsapp,
 } from "react-icons/fa";
 import Link from "next/link";
 import ShareButtons from "@/app/ui/ShareButtons";
@@ -23,27 +25,44 @@ type Props = {
 
 // ✅ Meta avec Promise pour params
 export async function generateMetadata({ params }: Props) {
-  //const { slug } = await params;
   const { locale, slug } = await params;
+  const defaultTitle = "Benin Eco | L'actualité économique";
 
   try {
-    const post = await fetchPostMeta(slug, locale);
-    if (!post) return {};
+    let cleanSlug = decodeURIComponent(slug);
+    cleanSlug = cleanSlug.replace(/['’]/g, '');
+
+    // 💡 ON UTILISE fetchPost ICI AUSSI (Puisqu'on sait qu'il fonctionne parfaitement)
+    const post = await fetchPost(cleanSlug, locale);
+    
+    if (!post || !post.title) {
+      return { title: defaultTitle };
+    }
+
+    // Extraction propre du texte du titre
+    // ✅ Version corrigée pour TypeScript (sans toucher à votre logique)
+const targetPost = post as any;
+
+const titleText = typeof targetPost.title === 'object' && targetPost.title?.rendered 
+  ? targetPost.title.rendered 
+  : targetPost.title;
+
     return {
-      title: he.decode(post.title),
-      description: he.decode(post.excerpt),
+      title: `${he.decode(titleText)} | Benin Eco`,
+      description: post.excerpt ? he.decode(post.excerpt) : "",
       openGraph: {
-        title: he.decode(post.title),
-        description: he.decode(post.excerpt),
-        images: [post.featured_image],
-        //url: post.link,
-        //type: "article",
+        title: he.decode(titleText),
+        description: post.excerpt ? he.decode(post.excerpt) : "",
+        images: post.featured_image ? [post.featured_image] : [],
+        type: "article",
       }
     };
-  } catch {
-    return {};
+  } catch (error) {
+    console.error("Erreur SEO generateMetadata :", error);
+    return { title: defaultTitle };
   }
 }
+
 
 export default async function PostPage({ params }: Props) {
   const { locale, slug } = await params;
@@ -116,19 +135,22 @@ const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_CHANNEL_URL;
 
               {post.featured_image ? (
 <>
-<img
-  src={post.featured_image}
-  alt={post.title}
-  loading="lazy"
-  className="w-full min-h-[200px] object-cover rounded-lg mb-6"
-/>
+<div className="relative w-full mb-6 group">
+    {/* L'image principale */}
+    <img
+      src={post.featured_image}
+      alt={post.title}
+      loading="lazy"
+      className="w-full min-h-[200px] max-h-[500px] object-cover rounded-lg"
+    />
 
-{/* Crédit photo affiché ici */}
-{post.photo_credit && (
-        <p className="text-xs text-gray-500 mt-0 mb-0 italic text-left" style={{marginTop:-10}}>
-          {post.photo_credit}
-        </p>
-      )}
+    {/* Le crédit photo positionné en étiquette en bas à droite de l'image */}
+    {post.photo_credit && (
+      <p className="absolute bottom-3 right-3 bg-black/65 text-white text-[11px] font-medium py-1 px-2.5 rounded italic shadow-sm pointer-events-none z-10 m-0 backdrop-blur-[2px]">
+        {post.photo_credit}
+      </p>
+    )}
+  </div>
 </>
 
 ) : (
@@ -143,25 +165,59 @@ const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_CHANNEL_URL;
 )}
 
 
-              <div
+<div
+    className="wp-content prose max-w-none text-base lg:text-[16px] 
+               [&_.wp-caption]:relative [&_.wp-caption]:block [&_.wp-caption]:!w-full [&_.wp-caption]:max-w-full [&_.wp-caption]:mb-6
+               [&_.wp-caption_img]:w-full [&_.wp-caption_img]:h-auto [&_.wp-caption_img]:object-cover [&_.wp-caption_img]:rounded-lg
+               [&_.wp-caption-text]:absolute [&_.wp-caption-text]:bottom-3 [&_.wp-caption-text]:right-3 
+               [&_.wp-caption-text]:bg-black/65 [&_.wp-caption-text]:text-white [&_.wp-caption-text]:text-xs 
+               [&_.wp-caption-text]:py-1 [&_.wp-caption-text]:px-2.5 [&_.wp-caption-text]:rounded [&_.wp-caption-text]:italic 
+               [&_.wp-caption-text]:m-0 [&_.wp-caption-text]:pointer-events-none" 
+    dangerouslySetInnerHTML={{ 
+      __html: post.content 
+        ? post.content.replace(/<p><strong>\s*LIRE AUSSI\s*:/gi, '<p class="lire-aussi-box"><strong>LIRE AUSSI :') 
+        : "" 
+    }}
+/>
+{/*
+<div
                 className="wp-content prose max-w-none text-base lg:text-[16px] wp-content" // Par défaut, taille de texte "base", sur desktop 16px
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
+*/}
 
-              <br/>
-              <div className="text-sm flex items-center">
-                                        <FaHandPointRight className="text-gray-500 mr-1" />
-                                        <a
-                                          href={`${whatsappLink}`}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-[#db2e44] no-underline hover:underline font-semibold"
-                                        >
-                                          {locale === "en"
-                                            ? "Follow the live information on our WHATSAPP channel"
-                                            : "Suivez l'information en direct sur notre chaîne WHATSAPP"}
-                                        </a>
-                                      </div>
+<br/>
+<div className="flex flex-col gap-3 mt-2">
+  <div className="text-sm flex items-center">
+    <FaHandPointRight className="text-gray-500 mr-1 shrink-0" />
+    <FaWhatsapp className="text-[#25D366] mr-2 shrink-0" size={16} />
+    <a
+      href={`${whatsappLink}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#db2e44] no-underline hover:underline font-semibold"
+    >
+      {locale === "en"
+        ? "Follow the live information on our WHATSAPP channel"
+        : "Suivez l'information en direct sur notre chaîne WHATSAPP"}
+    </a>
+  </div>
+
+  <div className="text-sm flex items-center">
+    <FaHandPointRight className="text-gray-500 mr-1 shrink-0" />
+    <FaLinkedin className="text-[#0A66C2] mr-2 shrink-0" size={16} />
+    <a
+      href={process.env.NEXT_PUBLIC_LINKEDIN_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#0A66C2] no-underline hover:underline font-semibold"
+    >
+      {locale === "en"
+        ? "Follow our content on our LinkedIn page"
+        : "Suivez nos contenus sur notre page LinkedIn"}
+    </a>
+  </div>
+</div>
             </article>
 
             

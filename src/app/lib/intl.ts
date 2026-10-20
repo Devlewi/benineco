@@ -1,7 +1,7 @@
 import "server-only";
 
 import { createIntl } from "@formatjs/intl";
-import type { Locale } from "../../../i18n-config.js";
+import type { Locale } from "../../../i18n-config.ts";
 
 export async function getIntl(locale: Locale) {
   return createIntl({

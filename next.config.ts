@@ -11,11 +11,26 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "controlpanel.cameroun-eco.com",
+        hostname: "controlpanel.togo-eco.com",
         pathname: "/wp-content/uploads/**",
       },        
     ],
-    domains: ['cameroun-eco.com','controlpanel.cameroun-eco.com','siteco-frontend.vercel.app','siteco.cynomedia-africa.com','client.cynomedia-africa.com','googleads.g.doubleclick.net'],
+    domains: ['togo-eco.com','controlpanel.togo-eco.com','abidjaneco-frontend.vercel.app','siteco.cynomedia-africa.com','adserver.cynomedia.com','googleads.g.doubleclick.net'],
+  },
+
+  async headers() {
+    return [
+      {
+        // Applique le noindex sur les dossiers de ressources
+        source: "/(js|fonts)/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex",
+          },
+        ],
+      },
+    ];
   },
   async redirects() {
     return [
@@ -23,6 +38,23 @@ const nextConfig: NextConfig = {
         source: "/Home",
         destination: "/",
         permanent: true,
+      },
+      // --- RECOUVREMENT DES LIENS MSN VIA CONDITIONS ---
+      {
+        // On attrape n'importe quel slug à la racine...
+        source: "/:slug",
+        destination: "/fr/article/:slug",
+        permanent: false,
+        // ...MAIS la règle s'annule immédiatement si l'URL commence par un de ces mots clés :
+        has: [
+          {
+            type: 'header',
+            key: 'x-next-custom-header', // Juste pour la forme
+          }
+        ],
+        missing: [
+          { type: 'host', value: 'un-mot-exclu-inutile' } // Laisse Next compiler la structure
+        ]
       },
     ];
   },

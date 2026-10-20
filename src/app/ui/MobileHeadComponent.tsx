@@ -95,7 +95,7 @@ export default function MobileHeadComponent() {
                   
                   {/*<img
                     className="logo-mobile logo-image"
-                    src={`/${locale}/images/logo-mobile.webp`}
+                    src={`/${locale}/images/logo-benin-eco.webp`}
                     width={155}
                     height={36}
                     alt="Logo"
@@ -105,7 +105,7 @@ export default function MobileHeadComponent() {
 {/*
 <img
   className="logo-mobile logo-image w-[800px] h-auto"
-  src={`/${locale}/images/logo-ce.webp`}
+  src={`/${locale}/images/logo-benin-eco.webp`}
   alt="Logo"
 />
 */}

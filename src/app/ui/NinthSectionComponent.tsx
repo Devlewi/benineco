@@ -84,7 +84,7 @@ const NinthSectionComponent: React.FC = () => {
           {/* Logo + Sélecteur de langue */}
           <div className="flex items-center gap-4 w-full md:w-auto justify-center md:justify-start">
             <img
-              src="/images/logo-tr-benin-eco.png"
+              src="/images/logo-tr-benin-eco.webp"
               alt="Logo"
               className="w-[155px] h-[36px] md:w-[280px] md:h-[65px] object-contain"
             />

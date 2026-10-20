@@ -84,24 +84,7 @@ export default function BrandGrid({ dataArticles, locale }: BrandGridProps) {
                   )}
                   <span className="text-white font-semibold">{article.brand_name}</span>
                 </div>
-                {/* Badge catégorie */}
-                
-                {/*
-                <div className="absolute top-0 left-0 mt-[-15px] z-20">
-                  {article.subcategory?.slug && article.subcategory?.name ? (
-                    <Link
-                      href={`/${locale}/${category}/${postcategory}`}
-                      className="bg-[#db2e44] p-2 text-white rounded-md font-semibold"
-                    >
-                      <span>{decodeHTML(article.subcategory.name)}</span>
-                    </Link>
-                  ) : (
-                    <div className="bg-gray-700 p-2 text-gray-500 rounded-md font-semibold">
-                      emplacement vide
-                    </div>
-                  )}
-                </div>
-                */}
+                {/* Badge catégorie */}                
 
                 {/* Image */}
                 <Link

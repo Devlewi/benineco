@@ -68,7 +68,7 @@ export default function FlashInfoComponent({ data }: FlashInfoComponentProps) {
                 <h3 className="text-sm font-semibold text-white mb-0 font-interExtraBold mt-[-3px]" style={{fontSize:14}}>
                   {formatDate(item.date)}
                 </h3>
-                <p className="text-[14px] text-white mb-2 font-interMedium truncate-1-line">
+                <p className="text-[14px] text-white mb-2 font-interMedium line-clamp-2">
                   {he.decode(item.title)}
                 </p>
               </div>

@@ -58,7 +58,7 @@ export default function MobileMenu() {
             }}
           >
             <Link href="" className="logo-link ts-logo logo-is-image">
-              m<img
+              <img
                 src="/images/logo4.jpg"
                 alt="SmartMag Logo"
                 className="logo-image"

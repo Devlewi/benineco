@@ -45,7 +45,6 @@ const villesBenin = [
 const villeAleatoire =
   villesBenin[Math.floor(Math.random() * villesBenin.length)];
 
-
   const [lastUpdate, setLastUpdate] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
@@ -76,6 +75,7 @@ const villeAleatoire =
     day: "2-digit",
     month: "long",
     year: "numeric",
+    timeZone: "Africa/Porto-Novo", // Force l'heure du Bénin
   };
 
   const dateFormattee = new Date().toLocaleDateString(
@@ -169,7 +169,7 @@ const villeAleatoire =
                       <a href="#" style={{ fontWeight: 900, fontSize: 15 }}>
                         <img
                           src={`/${locale}/images/flag.webp`}
-                          style={{ width: "20%", padding:15 }}
+                          style={{ width: "20%" }}
                           alt="drapeau cameroun"
                           className="mr-2"
                         />

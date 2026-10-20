@@ -42,30 +42,19 @@ const EspacePub1: React.FC = () => {
       <div className="max-w-screen-xl mx-auto" style={{ marginTop: -15 }}>
         <div className="flex justify-center">
           {isMobile ? (
-            <iframe
-              id="aa9b8ba7"
-              name="aa9b8ba7"
-              src={`https://adserver.cynomedia.com/www/delivery/afr.php?zoneid=2258&cb=${cb}`}
-              frameBorder="0"
-              scrolling="no"
-              width="336"
-              height="280"
-              allow="autoplay"
-              style={{ border: "none" }}
-            ></iframe>
-          ) : (
-            <iframe
-              id="a031b91f"
-              name="a031b91f"
-              src={`https://adserver.cynomedia.com/www/delivery/afr.php?zoneid=2257&cb=${cb}`}
-              frameBorder="0"
-              scrolling="no"
-              width="970"
-              height="250"
-              allow="autoplay"
-              style={{ border: "none" }}
-            ></iframe>
-          )}
+                //data-revive-zoneid="230"
+                <ins
+                  data-revive-zoneid="301"
+                  data-revive-id="16a6633e0a24be5cdd88d46adf91ea32"
+                ></ins>
+              ) : (
+                //data-revive-zoneid="229"
+                <ins
+                  data-revive-zoneid="302"
+                  data-revive-id="16a6633e0a24be5cdd88d46adf91ea32"
+                ></ins>                
+                
+              )}
         </div>
       </div>
     </section>

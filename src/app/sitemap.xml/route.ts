@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-//https://controlpanel.cameroun-eco.com/wp-json/wp/v2/posts?per_page=100&_fields=slug,date
+//https://controlpanel.abidjan-eco.com/wp-json/wp/v2/posts?per_page=100&_fields=slug,date
 import { type NextRequest } from 'next/server';
 
 const POSTS_API_URL = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/wp-json/wp/v2/posts?per_page=100&_fields=slug,date`;
@@ -40,7 +40,7 @@ export async function GET(_req: NextRequest) {
     const articles = await getArticleSlugs();
 
     const urls = articles.map(article => ({
-      loc: `https://www.cameroun-eco.com/${article.locale}/article/${article.slug}`,
+      loc: `https://www.benin-eco.com/${article.locale}/article/${article.slug}`,
       lastmod: article.lastmod,
     }));
 

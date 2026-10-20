@@ -18,12 +18,14 @@ const siteDomain = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 const locales = ["fr", "en"];
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>; // Changement ici
   children: React.ReactNode;
 };
 
-export default async function RootLayout({ params, children }: Props) {
+export default async function RootLayout(props: Props) {
   // Utilise `await` sur `params`
+  //const { locale } = await params;
+  const { params, children } = props;
   const { locale } = await params;
   const status = await fetchStickyStatus();  // appel côté serveur
   const showSticky = status === "Oui";
@@ -42,20 +44,22 @@ export default async function RootLayout({ params, children }: Props) {
           crossOrigin="anonymous"
         />
 
-{/*
-<Script
-    id="adsense-init"
-    strategy="afterInteractive"
-    dangerouslySetInnerHTML={{
-      __html: `
-        (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-9760088965124508",
-          enable_page_level_ads: true
-        });
-      `,
-    }}
-  />
-*/}
+
+              <Script
+  strategy="afterInteractive" // Gardez afterInteractive pour la performance
+  src="https://www.googletagmanager.com/gtag/js?id=G-7V8PD8HYWQ"
+/>
+
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7V8PD8HYWQ', {
+      page_path: window.location.pathname,
+    });
+  `}
+</Script>
 
 
 
@@ -266,14 +270,14 @@ export default async function RootLayout({ params, children }: Props) {
                       src={`/${locale}/images/logo-benin-eco.webp`}
                       width={210}
                       height={56}
-                      alt=""
+                      alt="Benin Eco"
                     />
                     <img
                       className="logo-mobile logo-image"
                       src={`/${locale}/images/logo-benin-eco.webp`}
                       width={210}
                       height={56}
-                      alt=""
+                      alt="Benin Eco"
                     />
                   </div>
                 </div>
@@ -497,6 +501,7 @@ export default async function RootLayout({ params, children }: Props) {
             });
           `}
         </Script>
+
       </body>
     </html>
   );
